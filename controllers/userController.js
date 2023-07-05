@@ -1,5 +1,8 @@
 const User = require("../models/User");
 
+//Users CRUD
+
+//Read
 const getUsers = async (req, res) => {
   try {
     const users = await User.find().populate("friends").populate("thoughts");
@@ -25,6 +28,7 @@ const getOneUser = async (req, res) => {
   }
 };
 
+//Create
 const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
@@ -34,6 +38,7 @@ const createUser = async (req, res) => {
   }
 };
 
+//Update
 const updateUser = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
@@ -52,6 +57,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+//Delete
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ _id: req.params.id });
@@ -68,6 +74,9 @@ const deleteUser = async (req, res) => {
   }
 };
 
+//Friends CRUD
+
+//Create
 const createFriend = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
@@ -86,6 +95,7 @@ const createFriend = async (req, res) => {
   }
 };
 
+//Delete
 const deleteFriend = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(

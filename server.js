@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
+// Open connection to db and server
 db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}`);

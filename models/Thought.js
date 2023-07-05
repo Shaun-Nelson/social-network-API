@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 
+// Reaction Schema to be nested in Thought Schema
 const reactionSchema = new Schema({
   reactionId: {
     type: Schema.Types.ObjectId,

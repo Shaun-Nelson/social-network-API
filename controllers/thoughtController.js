@@ -1,6 +1,9 @@
 const Thought = require("../models/Thought");
 const User = require("../models/User");
 
+//Thoughts CRUD
+
+//Read
 const getThoughts = async (req, res) => {
   try {
     const thoughts = await Thought.find();
@@ -23,6 +26,7 @@ const getOneThought = async (req, res) => {
   }
 };
 
+//Create
 const createThought = async (req, res) => {
   try {
     const thought = await Thought.create(req.body);
@@ -38,6 +42,7 @@ const createThought = async (req, res) => {
   }
 };
 
+//Update
 const updateThought = async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
@@ -55,6 +60,7 @@ const updateThought = async (req, res) => {
   }
 };
 
+//Delete
 const deleteThought = async (req, res) => {
   try {
     const thought = await Thought.findOneAndDelete({ _id: req.params.id });
@@ -64,6 +70,9 @@ const deleteThought = async (req, res) => {
   }
 };
 
+//Reactions CRUD
+
+//Create
 const createReaction = async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
@@ -81,6 +90,7 @@ const createReaction = async (req, res) => {
   }
 };
 
+//Delete
 const deleteReaction = async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
