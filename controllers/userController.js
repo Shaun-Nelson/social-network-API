@@ -1,11 +1,15 @@
 const User = require("../models/User");
+const Thought = require("../models/Thought");
 
 //Users CRUD
 
 //Read
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("friends").populate("thoughts");
+    const users = await User.find()
+      .select("-__v")
+      .populate("friends")
+      .populate("thoughts");
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
@@ -15,6 +19,7 @@ const getUsers = async (req, res) => {
 const getOneUser = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id })
+      .select("-__v")
       .populate("friends")
       .populate("thoughts");
 
@@ -61,6 +66,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ _id: req.params.id });
+
     //Remove a user's associated thoughts when deleted.
     await Thought.deleteMany({ username: user.username });
 

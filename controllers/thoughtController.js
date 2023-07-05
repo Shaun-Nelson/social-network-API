@@ -6,7 +6,7 @@ const User = require("../models/User");
 //Read
 const getThoughts = async (req, res) => {
   try {
-    const thoughts = await Thought.find();
+    const thoughts = await Thought.find().select("-__v");
     res.status(200).json(thoughts);
   } catch (err) {
     res.status(500).json(err);

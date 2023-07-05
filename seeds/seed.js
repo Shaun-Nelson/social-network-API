@@ -33,7 +33,7 @@ const thoughtSeedData = [
 ];
 
 // Function to seed data
-const seedData = async () => {
+const seed = async () => {
   try {
     // Connect to database
     await mongoose.connect(
@@ -70,5 +70,5 @@ const seedData = async () => {
   }
 };
 
-// Invoke the seedData function
-seedData();
+// Invoke the seed function
+seed();
