@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Thought = require("../models/Thought");
+const mongoose = require("mongoose");
 
 // Seed data for Users
 const userSeedData = [
@@ -32,8 +33,17 @@ const thoughtSeedData = [
 ];
 
 // Function to seed data
-async function seedData() {
+const seedData = async () => {
   try {
+    // Connect to database
+    await mongoose.connect(
+      process.env.MONGODB_URI || "mongodb://localhost/socialnetworkDB",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
+
     // Clear existing data
     await User.deleteMany();
     await Thought.deleteMany();
@@ -58,7 +68,7 @@ async function seedData() {
     console.error("Error seeding data:", error);
     process.exit(1);
   }
-}
+};
 
 // Invoke the seedData function
 seedData();
