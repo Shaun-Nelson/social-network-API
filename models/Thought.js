@@ -2,31 +2,39 @@ const { Schema, model, Types } = require("mongoose");
 const moment = require("moment");
 
 // Helper function to format date
-const formatDate = (createdAtVal) => {
-  return moment(createdAtVal).format("DD/MM/YYYY");
+const formatDate = (date) => {
+  return moment(date).format("DD/MM/YYYY");
 };
 
 // Reaction Schema to be nested in Thought Schema
-const reactionSchema = new Schema({
-  reactionId: {
-    type: Schema.Types.ObjectId,
-    default: () => new Types.ObjectId(),
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: "Reaction is required",
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: "Username is required",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: formatDate,
+    },
   },
-  reactionBody: {
-    type: String,
-    required: "Reaction is required",
-    maxLength: 280,
-  },
-  username: {
-    type: String,
-    required: "Username is required",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: formatDate,
-  },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 
 const thoughtSchema = new Schema(
   {
@@ -51,6 +59,7 @@ const thoughtSchema = new Schema(
     toJSON: {
       getters: true,
     },
+    id: false,
   }
 );
 
